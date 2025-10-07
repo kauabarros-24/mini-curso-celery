@@ -5,7 +5,7 @@ description = "Default template for PDM package"
 authors = [
     {name = "user.name: kauabarros-25", email = "user.mail: martinsbarroskaua@gmail.com"},
 ]
-dependencies = ["fastapi>=0.118.0", "uvicorn>=0.37.0", "gunicorn>=23.0.0", "celery>=5.5.3", "redis>=6.4.0", "python-dotenv>=1.1.1", "mailtrap>=2.2.0"]
+dependencies = ["fastapi>=0.118.0", "uvicorn>=0.37.0", "gunicorn>=23.0.0", "celery>=5.5.3", "redis>=6.4.0", "python-dotenv>=1.1.1", "mailtrap>=2.2.0", "flower>=2.0.1"]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}
@@ -16,3 +16,10 @@ distribution = false
 
 [tool.pdm.scripts]
 dev = "uvicorn src.main:app --reload"
+docker = "docker run -d --name redis_custom -p 6380:6379 redis"
+kill_docker = "docker rm -f redis_custom"
+celery = "celery -A src.wsgi worker --loglevel=info"
+redis = "redis-server --requirepass minhasenha"
+flower = "celery -A src.config.app flower"
+
+
