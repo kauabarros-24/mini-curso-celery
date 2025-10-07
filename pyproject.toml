@@ -1,0 +1,15 @@
+[project]
+name = "mini-curso-celery"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "user.name: kauabarros-25", email = "user.mail: martinsbarroskaua@gmail.com"},
+]
+dependencies = ["fastapi>=0.118.0", "uvicorn>=0.37.0", "gunicorn>=23.0.0", "celery>=5.5.3", "redis>=6.4.0", "python-dotenv>=1.1.1", "mailtrap>=2.2.0"]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
