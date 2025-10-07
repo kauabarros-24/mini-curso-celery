@@ -1,14 +1,36 @@
 import time
-import logging
 from celery import Celery
-from src.config import REDIS_URL
+from src.config import REDIS_URL, MAILTRAP
+import mailtrap as mt
+import asyncio
 
 app = Celery("tasks", broker=REDIS_URL, backend=REDIS_URL)
+
+client_mt = mt.MailtrapClient(token=MAILTRAP["token"])
 
 @app.task
 def long_task():
     time.sleep(10)
-    logging.Logger("Ola adadadadadada")
     
     return {"message": "Finished tasks with celery"}
+
+@app.task
+def process_data_and_sending_email(subject, body, to_email):
+    asyncio.run(send_email(to_email, subject, body))
+    return {"Task do celery finalizada": "message"}
+
+async def send_email(to_email, subject, body):
+    mail = mt.Mail(
+        sender=mt.Address(email="mailtrap@demomailtrap.co", name="Mailtrap Test"),
+        to=[mt.Address(email=to_email, name="User")],
+        subject=subject,
+        text=body,
+    )
+    try:
+        client_mt.send(mail)
+        print("Envio de email feito")
+    except Exception as error:
+        print(f"Não deu certo: {error}")
+        
+
     

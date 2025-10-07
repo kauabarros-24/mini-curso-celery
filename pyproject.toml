@@ -20,6 +20,6 @@ docker = "docker run -d --name redis_custom -p 6380:6379 redis"
 kill_docker = "docker rm -f redis_custom"
 celery = "celery -A src.wsgi worker --loglevel=info"
 redis = "redis-server --requirepass minhasenha"
-flower = "celery -A src.config.app flower"
+flower = "celery -A src.tasks.app flower"
 
 
