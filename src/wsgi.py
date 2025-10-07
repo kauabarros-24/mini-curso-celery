@@ -1,2 +1,2 @@
-from src.tasks import app
+from src.tasks import celery_app
 
