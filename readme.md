@@ -1,0 +1,1 @@
+#Mini curso de celery e python com o Professor Eduardo
